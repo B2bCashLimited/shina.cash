@@ -1,0 +1,20 @@
+@import "src/app/styles/variables";
+@import "src/app/styles/mixins";
+
+.ng-select-wrap {
+  margin-bottom: 10px;
+}
+
+.b-category-title{
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  text-align: center;
+
+  span{
+    font-weight: 300;
+    padding-left: 4px;
+  }
+}
+

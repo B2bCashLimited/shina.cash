@@ -1,0 +1,77 @@
+@import "src/app/styles/variables";
+
+:host {
+  display: block;
+}
+
+.popup {
+  max-width: 400px;
+  width: 100%;
+}
+
+.popup-icon {
+  i {
+    color: #28ae60;
+    font-size: 150px;
+    margin: 0 auto;
+    display: block;
+    width: 150px;
+
+    @media only screen and (max-width: 767px) {
+      font-size: 80px;
+    }
+  }
+}
+
+.popup-title {
+  font-family: $default-font-family;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 1.25rem;
+  text-align: center;
+  color: #000000;
+}
+
+.popup-text {
+  font-family: $default-font-family;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 21px;
+  font-size: .9375rem;
+  text-align: center;
+  color: #3C4858;
+}
+
+.popup-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+
+  i {
+    color: #FF0000;
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .popup {
+    .b2b-btn--medium {
+      font-size: .875rem;
+    }
+  }
+}
+
+a {
+  color: #FF6F00;
+}
+
+@media only screen and (max-width: 479px) {
+  .popup {
+    max-width: 100%;
+  }
+  .popup-title {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,15 @@
+<div class="ng-select-wrap w-100">
+  <ng-select
+    [bindLabel]="config.name"
+    class="w-100"
+    [items]="categories"
+    [(ngModel)]="category"
+    clearAllText="{{'filters.clear' | translate}}"
+    notFoundText="{{'filters.notResult' | translate}}"
+    placeholder="{{'category.category' | translate}}"
+    typeToSearchText="{{'filters.typeToSearch' | translate}}"
+    dropdownPosition="bottom"
+    (change)="onCategoryChanged($event)"
+    [selectOnTab]="true"
+  ></ng-select>
+</div>

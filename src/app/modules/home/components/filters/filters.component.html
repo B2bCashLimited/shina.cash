@@ -1,0 +1,57 @@
+<div class="b-category-title mb-4">
+  {{'filters.tiresAndDisks' | translate}} <span>(3 042)</span>
+</div>
+
+<ng-container *ngIf="category">
+  <div class="ng-select-wrap accent w-100"
+       *ngFor="let property of mainProperties"
+       (keyup.enter)="search(1)">
+    <!--Ряд главных характеристик-->
+    <ng-select class="w-100"
+               [items]="property['items']"
+               [(ngModel)]="searchKeyProperties[property.id]"
+               [virtualScroll]="true"
+               clearAllText="{{'filters.clear' | translate}}"
+               notFoundText="{{'filters.notResult' | translate}}"
+               placeholder="{{property[config.name]}}"
+               typeToSearchText="{{'filters.typeToSearch' | translate}}"
+               dropdownPosition="bottom"
+               (change)="search(1)"
+               [selectOnTab]="true"
+      ></ng-select>
+  </div>
+
+  <div class="ng-select-wrap w-100 ng-select-wrap-pt">
+    <!--Производитель -->
+    <ng-select class="w-100"
+               [items]="manufacturers"
+               [(ngModel)]="searchKeyProductManufacturer"
+               [virtualScroll]="true"
+               clearAllText="{{'filters.clear' | translate}}"
+               notFoundText="{{'filters.notResult' | translate}}"
+               placeholder="{{'filters.BrandManufacturer' | translate}}"
+               typeToSearchText="{{'filters.typeToSearch' | translate}}"
+               dropdownPosition="bottom"
+               (change)="search(1)"
+               [selectOnTab]="true"
+      ></ng-select>
+  </div>
+
+  <div class="ng-select-wrap w-100"
+       *ngFor="let property of properties"
+       (keyup.enter)="search(1)">
+    <!--Ряд остальных характеристик-->
+    <ng-select class="w-100"
+               [items]="property['items']"
+               [(ngModel)]="searchKeyProperties[property.id]"
+               [virtualScroll]="true"
+               clearAllText="{{'filters.clear' | translate}}"
+               notFoundText="{{'filters.notResult' | translate}}"
+               placeholder="{{property[config.name]}}"
+               typeToSearchText="{{'filters.typeToSearch' | translate}}"
+               dropdownPosition="bottom"
+               (change)="search(1)"
+               [selectOnTab]="true"
+      ></ng-select>
+  </div>
+</ng-container>

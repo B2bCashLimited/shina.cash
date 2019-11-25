@@ -1,0 +1,112 @@
+<div class="b-card">
+  <a [routerLink]="'/product/' + product.id">
+    <div class="b-card--img">
+      <img alt=""
+           [src]="config.serverUrl + product.photos[0].link">
+    </div>
+  </a>
+
+  <div class="b-card--info">
+    <div class="b-card--title">
+      {{product[config.name]}}&nbsp;{{product.model && product.model[config.name] || ''}}
+    </div>
+    <div class="b-card--subtitle">
+      {{product?.activity?.name}}
+    </div>
+
+    <!-- торг возможен -->
+    <!--<div *ngIf="!product.isPriceFormula && product.paymentOption !== paymentOptions.BARGAIN_IS_POSSIBLE"
+         class="row align-items-center b-card&#45;&#45;input-wrap">
+      <div class="col-auto">
+        <div class="b-card&#45;&#45;input input-narrow">
+          <input [formControl]="count" placeholder="{{'supplier.count' | translate}}" autocomplete="off">
+        </div>
+      </div>
+      <div class="col">
+        <div class="b-card&#45;&#45;input">
+          <input [formControl]="price" placeholder="{{'supplier.yourPrice' | translate}}" autocomplete="off">
+        </div>
+      </div>
+    </div>-->
+
+    <!-- торг невозможен -->
+    <div *ngIf="!product.isPriceFormula && product.paymentOption !== paymentOptions.BARGAIN_IS_NOT_POSSIBLE"
+         class="row align-items-center b-card--input-wrap">
+      <div class="col-auto">
+        <div class="b-card--input input-narrow">
+          <input [formControl]="count" placeholder="{{'supplier.count' | translate}}" autocomplete="off">
+        </div>
+      </div>
+      <div class="col" *ngIf="count.value && count.value > 0">
+        <div class="b-card--price text-center">
+          {{(price.value || product.price) * count.value}} <span>{{product.currency[config.name]}}/{{product.priceFor[config.name]}}</span>
+        </div>
+<!--        <div class="b-card&#45;&#45;small-text text-gray text-center">{{'supplier.bargainNotPossible' | translate}}</div>-->
+      </div>
+    </div>
+
+<!--    по расчёту-->
+    <!--<div class="row align-items-center b-card&#45;&#45;input-wrap"
+         *ngIf="product.isPriceFormula">
+      <span class="price">{{'supplier.calcByFormula' | translate}}</span>
+    </div>-->
+
+    <!-- появляющийся блок - ваша цена -->
+    <!--<div *ngIf="count.value && count.value > 0"
+         class="row align-items-center mb-11">
+      <div class="col-12">
+        <div class="b-card&#45;&#45;small-text text-center">
+          {{'supplier.yourPrice' | translate}}
+          <span class="pl-1">{{'supplier.order' | translate}}: {{count.value}}&nbsp;{{product.priceFor[config.name]}}</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="b-card&#45;&#45;price text-center">
+          {{(price.value || product.price) * count.value}} <span>{{product.currency[config.name]}}/{{product.priceFor[config.name]}}</span>
+        </div>
+      </div>
+    </div>-->
+
+    <!-- цена поставщика -->
+    <div class="row align-items-center mb-padding" *ngIf="product.paymentOption !== paymentOptions.WAITING_FOR_OFFERS">
+      <div class="col-12">
+        <div class="b-card--small-text text-center">
+          {{'supplier.supplierPrice' | translate}}
+          <span class="pl-1">{{'supplier.minimalOrder' | translate}}:&nbsp;{{product.minimal_amount}}&nbsp;{{product.priceFor[config.name]}}</span>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="b-card--price text-center">
+          {{product.price}}&nbsp;<span>{{product.currency[config.name]}}/{{product.priceFor[config.name]}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- появляющийся блок - диапозон цен - когда есть этот блок, карточке b-card нужно добавить класс - range-price  -->
+    <div style="display: none !important;"
+         class="b-ng-select d-flex align-items-center w-100">
+      <ng-select class="w-100"
+                 dropdownPosition="bottom">
+        <ng-option [value]="">Диапазон 1 - 10</ng-option>
+      </ng-select>
+    </div>
+
+    <div class="row btn-wrap">
+      <div class="col">
+        <button class="btn-fill w-100"
+                mat-raised-button
+                (click)="makeOrder()">
+          {{'supplier.buyNow' | translate}}
+        </button>
+      </div>
+      <div class="col-auto">
+        <button mat-raised-button
+                (click)="productChecked()"
+                class="btn-basket">
+          <i class="bb bb-basket-new"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

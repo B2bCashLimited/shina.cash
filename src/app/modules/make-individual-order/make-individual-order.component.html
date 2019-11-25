@@ -1,0 +1,179 @@
+<div class="b-container">
+  <div class="b-inner">
+    <h1 class="pt-2">{{'orders.createOrder' | translate}}</h1>
+    <!-- Ваш заказ -->
+    <div class="b-jumbotron">
+      <h2>{{'orders.yourOrder' | translate}}</h2>
+
+      <div class="b-jumbotron--inner">
+        <ng-container *ngFor="let product of cartedProducts">
+          <div class="coll-product">
+            <div class="b-coll">
+              <div class="product-img">
+                <img [alt]="product.photos && product.photos[0]?.name" [src]="config.serverUrl + product.photos[0].link">
+              </div>
+            </div>
+            <div class="b-coll">
+              <div class="coll-product--title">
+                {{product[config.name]}}
+              </div>
+              <div class="coll-product--subtitle">
+                  {{product?.productManufacturerData && product.productManufacturerData[config.name]}}
+              </div>
+            </div>
+            <div *ngIf="cartedProducts.length > 1" class="b-coll text-right">
+              <i (click)="deleteProduct(product)" class="bb bb-subtract-delete btn-delete"></i>
+            </div>
+          </div>
+          <!--кол-во товаров - предложения-->
+          <div class="row align-items-center buy-now">
+            <div class="col-sm-auto mb-sm-0 mb-2">
+              <div class="pseudo-btn"
+                    (click)="product.showWings = true"
+                    *ngIf="!product.showWings">
+                <div class="e-button">
+                  <i class="bb bb-minus"></i>
+                </div>
+                <div class="pseudo-btn--text">
+                  {{product.count}}
+                  <span matSuffix>{{(product.countUnit) ? ('measures.numb' | translate) : (product.priceFor && product.priceFor[config.name] || '')}}</span>
+                </div>
+                <div class="e-button"><i class="bb bb-plus-small"></i></div>
+              </div>
+              <div *ngIf="product.showWings" class="input-btn">
+                <mat-form-field class="w-100" floatPlaceholder="never" floatLabel="never">
+                  <span matPrefix class="e-button" (click)="subAdd(product, false)">
+                    <i class="bb bb-minus"></i>
+                  </span>
+                  <!-- <span class="e-button" matPrefix *ngIf="product.count === 1"><i class="bb bb-subtract-delete btn-delete" (click)="deleteFormCart(item)"></i></span> -->
+                  <input matInput class="w-100" autocomplete="off"
+                      type="number" [value]="1" [(ngModel)]="product.count"> <!--(change)="onCountInputChange($event, item)"-->
+                  <span matSuffix class="text-small">{{(product.countUnit) ? ('measures.numb' | translate) : product.priceFor[config.name]}}</span>
+                  <span matSuffix class="e-button" (click)="subAdd(product, true)">
+                    <i class="bb bb-plus-small"></i></span>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col text-total">
+              {{product.price | number:'1.0-2':config.locale}} {{currency && currency[config.name]}}
+            </div>
+          </div>
+          <div class="line"></div>
+        </ng-container>
+        <!--кол-во товаров - стоимость-->
+        <div class="row">
+          <div class="col-sm-6 mb-sm-0 mb-2 subtitle">
+            <span>{{cartedProducts.length}} </span> {{'orders.goods' | translate}}
+          </div>
+          <div class="col-sm-6">
+            <div class="row">
+              <div class="col-12 text-total">
+                {{'orders.totalPrice' | translate}}: {{totalPrice | number:'1.0-2':config.locale}} {{currency && currency[config.name]}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Получатель -->
+    <div class="b-jumbotron">
+      <h2>{{'orders.recipient' | translate}}</h2>
+      <div class="b-jumbotron--inner">
+        <app-make-individual-signup
+          (userRegistered)="registrationComplete($event)"
+          [noCountryMode]="true"
+          [noButtonMode]="true"
+          [individual]="true">
+        </app-make-individual-signup>
+      </div>
+    </div>
+
+    <!-- Доставка -->
+    <div class="b-jumbotron" [formGroup]="deliveryAddress">
+      <h2>{{'orders.delivery' | translate}}</h2>
+      <div class="b-jumbotron--inner">
+        <div class="ng-select-wrap w-100">
+          <ng-select class="w-100"
+                      [items]="cities"
+                      formControlName="city"
+                      [bindLabel]="config.name"
+                      [virtualScroll]="true"
+                      clearAllText="{{'orders.clear' | translate}}"
+                      notFoundText="{{'orders.notResult' | translate}}"
+                      placeholder="{{'orders.yourCity' | translate}}"
+                      typeToSearchText="{{'orders.typeToSearch' | translate}}"
+                      [selectOnTab]="true"
+                      [typeahead]="deliveryAddressCityTypeahead$"
+                      labelForId="city1">
+            <ng-template ng-label-tmp
+                          let-item="item">
+              <div *ngIf="item">{{item[config.name]}}, {{item.region?.country[config.name]}}</div>
+            </ng-template>
+            <ng-template ng-option-tmp
+                          let-item="item">
+              <div>{{item[config.name]}}, {{item.region[config.name]}}
+                , {{item.region?.country[config.name]}}</div>
+            </ng-template>
+          </ng-select>
+        </div>
+        <div class="e-input-find mb-0">
+          <mat-form-field class="w-100" floatLabel="never">
+            <input matInput
+                    placeholder="{{'orders.enterDeliveryAddress' | translate}}"
+                    autocomplete="off"
+                    formControlName="street">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+
+    <div class="b-jumbotron">
+      <h2>{{'orders.payment' | translate}}</h2>
+      <div class="b-jumbotron--inner">
+        <div class="row align-items-center">
+          <div class="col">
+            <mat-radio-group [formControl]="payment" aria-label="Select an option">
+              <mat-radio-button class="d-block" [value]="1">
+                <div class="d-flex align-items-center">
+                  <img class="img-price ml-0" src="assets/img/svg-icons/visa.svg">
+                  <img class="img-price" src="assets/img/svg-icons/mastercart.svg">
+                  <img class="img-price mr-0" src="assets/img/svg-icons/mir.svg">
+                </div>
+              </mat-radio-button>
+              <mat-radio-button class="d-block" [value]="2">{{'orders.cashToCourier' | translate}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="col-auto">
+            <img class="img-tintkoff" src="assets/img/tintkoff-large.png">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="b-checkbox mb-3">
+      <mat-checkbox class="">
+        <div class="checkbox-wrap--text-wrap">
+          <span class="checkbox-wrap--text">{{'signup.acceptConditions' | translate}}</span>
+          <a [routerLink]="['/deal', lang]"
+             target="_blank"
+             style="color: #FB6F31;">{{'signup.userAgreement' | translate}}</a>
+          <span class="checkbox-wrap--text ml-1">{{'signup.and' | translate}}</span>
+          <a [routerLink]="['/policy', lang]"
+             target="_blank"
+             style="color: #FB6F31;">{{'signup.privacyPolicy' | translate}}</a>.
+        </div>
+      </mat-checkbox>
+    </div>
+
+    <!--кнопка Оформления заказа-->
+    <div class="pt-2 mb-3">
+      <button id="submit" mat-raised-button color="accent" class="btn-fill w-100"
+              matTooltip="{{'orders.checkout' | translate}}" matTooltipPosition="above"
+              [disabled]="disabled"
+              (click)="makeOrder()">
+        {{'orders.checkout' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

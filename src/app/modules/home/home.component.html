@@ -1,0 +1,208 @@
+<div class="b-container">
+
+  <div class="b-carousel">
+    <div class="b-slider--arrow">
+      <div class="swiper-button-prev banner-prev ">
+        <span><i class=""></i></span>
+      </div>
+      <div class="swiper-button-next banner-next ">
+        <span><i class=""></i></span>
+      </div>
+    </div>
+    <swiper [config]="bannerSwiperConfig">
+      <div class="b-carousel--item ">
+        <img class="slide-1"
+             src="assets/img/slide-1c.jpg"
+             alt="">
+        <img class="slide-2"
+             src="assets/img/slide-1c-1024.jpg"
+             alt="">
+        <img class="slide-3"
+             src="assets/img/slide-1c-768.jpg"
+             alt="">
+        <img class="slide-4"
+             src="assets/img/slide-1c-320.jpg"
+             alt="">
+      </div>
+      <div class="b-carousel--item ">
+        <img class="slide-1"
+             src="assets/img/slide-3c.jpg"
+             alt="">
+        <img class="slide-2"
+             src="assets/img/slide-3c-1024.jpg"
+             alt="">
+        <img class="slide-3"
+             src="assets/img/slide-3c-768.jpg"
+             alt="">
+        <img class="slide-4"
+             src="assets/img/slide-3c-320.jpg"
+             alt="">
+      </div>
+      <div class="b-carousel--item ">
+        <img class="slide-1"
+             src="assets/img/slide-5c.jpg"
+             alt="">
+        <img class="slide-2"
+             src="assets/img/slide-5c-1024.jpg"
+             alt="">
+        <img class="slide-3"
+             src="assets/img/slide-5c-768.jpg"
+             alt="">
+        <img class="slide-4"
+             src="assets/img/slide-5c-320.jpg"
+             alt="">
+      </div>
+      <div class="b-carousel--item ">
+        <img class="slide-1"
+             src="assets/img/slide-4c.jpg"
+             alt="">
+        <img class="slide-2"
+             src="assets/img/slide-4c-1024.jpg"
+             alt="">
+        <img class="slide-3"
+             src="assets/img/slide-4c-768.jpg"
+             alt="">
+        <img class="slide-4"
+             src="assets/img/slide-4c-320.jpg"
+             alt="">
+      </div>
+    </swiper>
+  </div>
+
+  <div class="b-inner-top p-0 not-bg">
+    <div class="left-side">
+      <app-select-category
+        (categoryChange)="onCategoryChanged($event)"
+        (categoryChangeOnInit)="onCategoryOnInitChanged($event)"
+        [supplierOrManufacturer]="1"
+      ></app-select-category>
+    </div>
+
+    <div class="right-side">
+      <!--Бренды-->
+      <div *ngIf="manufacturersList && manufacturersList.length > 0"
+           class="brands-list">
+        <div class="b-slider--arrow">
+          <div class="swiper-button-prev brands-prev ">
+            <span><i class=""></i></span>
+          </div>
+          <div class="swiper-button-next brands-next ">
+            <span><i class=""></i></span>
+          </div>
+        </div>
+        <swiper [config]="brandsSwiperConfig"
+                class="w-100 pl-5 pr-5">
+          <div class="brands-list--item"
+               *ngFor="let brand of brands">
+            <div (click)="onSelectedManufacturer(brand.name)">
+              <img [src]="brand.src"
+                   [alt]="brand.name">
+            </div>
+          </div>
+        </swiper>
+      </div>
+    </div>
+  </div>
+
+<!--  мобильный-->
+  <div class="b-mobile"
+       [class.open]="isMobileFilterOpen">
+    <div class="b-mobile--top">
+      <div class="b-category-title mb-0">
+        {{'filters.tiresAndDisks' | translate}} <span>(3 042)</span>
+      </div>
+      <div class="b-open-feature"
+           (click)="openMobileFilter()">
+        <span>{{'filters.openFilter' | translate}}</span>
+        <i class="bb bb-mat-arrow"></i>
+      </div>
+    </div>
+    <div class="b-mobile--body">
+      <app-filters
+        *ngIf="isMobile"
+        [pageIndex]="pageEventIndexForFilters"
+        [categoryChanged]="categoryChanged"
+        [selectedManufacturer]="selectedManufacturer"
+        [sort]="sortedBy"
+        (loadedProducts)="onLoadedProducts($event)"
+        (pageEventChanged)="onPageEventChanged($event)"
+        (manufacturersLoaded)="onManufacturersLoaded($event)"
+      ></app-filters>
+    </div>
+  </div>
+
+  <div class="b-inner main-inner">
+    <div class="left-side">
+      <app-filters
+        *ngIf="!isMobile"
+        [pageIndex]="pageEventIndexForFilters"
+        [categoryChanged]="categoryChanged"
+        [selectedManufacturer]="selectedManufacturer"
+        [sort]="sortedBy"
+        (loadedProducts)="onLoadedProducts($event)"
+        (pageEventChanged)="onPageEventChanged($event)"
+        (manufacturersLoaded)="onManufacturersLoaded($event)"
+      ></app-filters>
+    </div>
+
+    <div class="right-side">
+      <!--Сортировка-->
+      <div class="sort">
+        <div class="b-sorted">
+          <h1 *ngIf="seoH1" class="p-0 mb-2">{{seoH1}}</h1>
+          <div class="d-flex align-items-center">
+            <span>{{'filters.sort' | translate}}: </span>
+            <!-- класс selected добавляется у выбранного типа сортировки, класс ic-up - добавлять если сортировка от меньшего к большему -->
+            <span class="cursor selected" [class.ic-up]="!isSortPriceAsc" (click)="sortByPrice()">
+              {{'filters.byPrice' | translate}}
+             <i class="bb bb-sort-amount-down"></i>
+            </span>
+            <span class="cursor"> по новизне</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <ng-container *ngIf="products.length > 0 && pageEvent">
+          <div class="b-coll"
+               *ngFor="let item of products | paginate: {id: 'main_pagination',
+                                                              itemsPerPage: pageEvent.pageSize,
+                                                              currentPage: pageEvent.pageIndex,
+                                                              totalItems: pageEvent.length }">
+            <!--Карточка Купить у поставщиков-->
+            <app-product-item-supplier
+              [product]="item"
+              [category]="category"
+              [checkedProducts]="checkedProducts"
+            ></app-product-item-supplier>
+          </div>
+        </ng-container>
+
+        <div class="b-pagination"
+             *ngIf="products.length > 0 && products[0] !== 'notFound'">
+          <nav aria-label="...">
+            <pagination-controls
+              id="main_pagination"
+              (pageChange)="pageChanged($event)"
+              [maxSize]="15"
+              [directionLinks]="true"
+              [responsive]="true"
+              [autoHide]="true"
+              previousLabel=""
+              nextLabel=""
+              screenReaderPaginationLabel="Pagination"
+              screenReaderPageLabel="page"
+              screenReaderCurrentLabel="You're on page"
+            ></pagination-controls>
+          </nav>
+        </div>
+
+        <!--<div *ngIf="seoTxt">
+          <div class="col-12">
+            <p [innerHTML]="seoTxt"></p>
+          </div>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

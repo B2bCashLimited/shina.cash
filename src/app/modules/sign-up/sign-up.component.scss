@@ -1,0 +1,288 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: calc(100vh - 100px - 180px);
+  justify-content: center;
+  align-items: center;
+}
+
+.reg-tabs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ececec;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.reg-tabs .reg-r-t {
+  display: inline-block;
+  font-size: 18px;
+  color: #3c4858;
+  line-height: 24px;
+  width: 80%;
+  text-align: center;
+  margin-top: 5rem;
+  font-weight: 400;
+}
+
+.reg-tabs .reg-r-icon,
+.reg-tabs .reg-p-icon {
+  width: 60px;
+  height: 60px;
+  margin-top: 38px;
+  border: 2px solid #fa7600;
+  border-radius: 50%;
+  background-color: #ffffff;
+
+  .bb-mat-data{
+    height: 28px;
+    font-size: 1.75rem;
+    color: #fa7600;
+  }
+}
+
+.reg-tabs .reg-r-text {
+  font-size: 13px;
+  color: #3c4858;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.reg-tabs .tabs-circles {
+  margin: 3rem 0 5.5rem 0;
+}
+
+.reg-tabs .tabs-circles .reg-tab-i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.reg-tabs .tabs-circles .reg-active-tab {
+  background-color: #f97806;
+}
+
+.reg-tabs .tabs-circles .reg-previous-tab {
+  border: 1px solid #f97806;
+  background-color: #fff;
+}
+
+// new styles
+.full-width-wrap {
+  min-width: 670px;
+  position: relative;
+  padding: 0;
+  background-color: #ffffff;
+
+  .signup-block {
+    max-width: 670px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    padding: 0 0 0 2.5rem;
+    border: 1px solid #f99300;
+    border-radius: 6px;
+    .signup-field {
+      font-size: .75rem;
+      margin-top: .75rem;
+      max-width: 300px;
+      width: 100%;
+    }
+  }
+
+  .checkbox-wrap{
+    ::ng-deep.mat-checkbox-inner-container{
+      margin: 0 8px 0 0;
+    }
+
+    ::ng-deep.mat-checkbox-layout{
+      white-space: normal;
+      font-size: 13px;
+      color: #3c4858;
+      align-items: flex-start;
+    }
+
+    &--text{
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    &--text-wrap{
+      line-height: 1.1;
+      letter-spacing: -.6px;
+    }
+  }
+}
+
+.signup-form {
+  margin-right: 1.25rem;
+}
+
+.signup-btn {
+  color: #ffffff;
+  margin: 1rem 0 2.5rem 0;
+}
+
+.form-wrap {
+  max-width: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.form-error {
+  color: #f44336;
+  font-size: 12px;
+  text-align: left;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+}
+
+.select-phone-code{
+  font-size: .75rem;
+  max-width: 300px;
+  width: 120px;
+  margin-top: 9px;
+  margin-right: 5px;
+
+  ::ng-deep.ng-dropdown-panel{
+    width: 300px;
+  }
+
+  ::ng-deep.ng-placeholder{
+    bottom: 9px;
+  }
+
+  ::ng-deep.ng-value-container{
+    padding-bottom: 5px;
+  }
+  ::ng-deep.ng-select-container{
+    min-height: 42.5px;
+    &:after{
+      bottom: 6px;
+    }
+  }
+
+  &.ng-select-focused{
+    ::ng-deep.ng-select-container{
+      &:after{
+        border-color: #ff8f00;
+      }
+
+      ::ng-deep.ng-placeholder,
+      ::ng-deep.ng-arrow{
+        color: #ff8f00;
+      }
+    }
+  }
+}
+
+.a-link-home{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: normal;
+  color: #FF7600;
+}
+
+@media (max-height: 650px){
+  :host {
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 1199px){
+  :host {
+    height: auto;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+
+  .full-width-wrap{
+    min-width: 260px;
+    width: 100%;
+
+    .signup-block{
+      flex-flow: column;
+      padding: 0 1rem;
+
+      .signup-field{
+        max-width: 100%;
+      }
+    }
+  }
+
+  .reg-tabs{
+    order: 1;
+    max-width: 100%;
+
+    .reg-r-t{
+      margin-top: 1rem;
+    }
+
+    .reg-p-icon{
+      margin-top: 5px;
+    }
+
+    .tabs-circles{
+      margin: 1rem 0 1.5rem 0;
+    }
+  }
+
+  .signup-form {
+    order: 2;
+    max-width: 100%;
+    margin-right: 0;
+  }
+
+  .form-wrap{
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .reg-tabs {
+    .tabs-circles{
+      display: none;
+    }
+
+    .reg-r-text{
+      margin-bottom: 1rem;
+    }
+  }
+
+  .full-width-wrap {
+    padding: 0;
+
+    .signup-block {
+      padding: 0 1rem 1rem 1rem
+    }
+  }
+  .signup-form {
+    margin: 0;
+    width: 100%;
+    .form-wrap {
+      display: flex;
+      flex-direction: column;
+      button {
+        margin: 1rem 0 0 0
+      }
+    }
+  }
+}

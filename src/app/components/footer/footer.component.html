@@ -1,0 +1,76 @@
+<footer class="footer">
+  <div class="footer--item-1">
+    <div class="b2b-ui-languages">
+      <mat-form-field>
+        <ng-container [ngSwitch]="config.locale">
+          <span class="e-flag"
+                *ngSwitchCase="'Ru'"><img src="assets/img/svg-icons/Flag_of_Russia.svg"
+                                          width="40"></span>
+          <span class="e-flag"
+                *ngSwitchCase="'En'"><img src="assets/img/svg-icons/Flag_of_United_Kingdom.svg"
+                                          width="40"></span>
+          <span class="e-flag"
+                *ngSwitchCase="'Cn'"><img src="assets/img/svg-icons/Flag_of_China.svg"
+                                          width="40"></span>
+        </ng-container>
+
+        <mat-select (selectionChange)="onUiLanguageChangedMobile($event)">
+          <mat-option value="Ru">
+            <span class="e-flag"><img src="assets/img/svg-icons/Flag_of_Russia.svg"
+                                      width="40"></span>
+          </mat-option>
+          <mat-option value="En">
+            <span class="e-flag"><img src="assets/img/svg-icons/Flag_of_United_Kingdom.svg"
+                                      width="40"></span>
+          </mat-option>
+          <mat-option value="Cn">
+            <span class="e-flag"><img src="assets/img/svg-icons/Flag_of_China.svg"
+                                      width="40"></span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="footer--wrap-link">
+      <a [routerLink]="['/deal', lang]"
+         class="footer--link">{{'footer.deal' | translate}}</a>
+      <a [routerLink]="['/policy', lang]"
+         class="footer--link">{{'footer.policy' | translate}}</a>
+      <a [routerLink]="['/support', lang]"
+         class="footer--link ">{{'footer.purchaseReturns' | translate}}</a>
+      <a [routerLink]="['/contacts']"
+         class="footer--link mb-0">{{'footer.contacts' | translate}}</a>
+      <img src="assets/img/tintkoff.png">
+    </div>
+  </div>
+  <div class="footer--item-2">
+    <div *ngIf="domainOwner && domainOwner.phone"
+         class="footer--phone">
+      <i class="bb bb-phone-2"></i>
+      <div>+7 {{domainOwner.phone}}</div>
+    </div>
+
+    <div class="footer--email">
+      <i class="bb bb-envelope-2"></i>
+      <a href="mailbox@support@b2b.cash">{{domainOwner?.email}}</a>
+    </div>
+  </div>
+  <div class="footer--item-3">
+    <div class="footer--text">
+      <span>&copy; 2018–{{currentYear}}&nbsp;{{domainOwnerCompany && domainOwnerCompany[config.name] || ''}}</span>
+    </div>
+    <div class="footer--text">
+      {{domainOwnerCompany && domainOwnerCompany[config.name] || ''}}&nbsp;
+      {{domainOwnerCompany?.legalAddress['countryName' + config.locale]}},
+      {{domainOwnerCompany?.legalAddress['regionName' + config.locale]}},
+      {{domainOwnerCompany?.legalAddress['cityName' + config.locale]}},
+      {{domainOwnerCompany?.legalAddress?.geoObject?.address}}
+    </div>
+  </div>
+  <div class="footer--item-4">
+    <span>{{'footer.weAccept' | translate}}:</span>
+    <img src="assets/img/svg-icons/visa.svg">
+    <img src="assets/img/svg-icons/mastercart.svg">
+    <img src="assets/img/svg-icons/mir.svg">
+  </div>
+
+</footer>

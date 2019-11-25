@@ -1,0 +1,352 @@
+@import "src/app/styles/variables";
+@import "src/app/styles/mixins";
+
+:host{
+  display: block;
+  position: relative;
+  height: 580px;
+}
+
+.b-card{
+  background: #FFFFFF;
+  border: 1px solid #EEEEEE;
+  border-radius: 5px;
+  padding: 9px 0 9px;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  transition: .25s ease-out;
+
+  &:hover{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  &.chosen{
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+
+    .mb-padding{
+      margin-bottom: 11px;
+    }
+  }
+
+  &.range-price{
+    .b-card--img{
+      height: 250px;
+    }
+
+    .mb-padding{
+      margin-bottom: 11px;
+    }
+  }
+
+  &--img{
+    width: 100%;
+    height: 300px;
+    padding: 0 9px;
+    margin-bottom: 10px;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      font-size: 10px;
+      line-height: 1;
+    }
+  }
+
+  &--small-text{
+    font-style: normal;
+    font-weight: normal;
+    @include rem(12);
+    line-height: 14px;
+    color: #000000;
+
+    &.text-gray{
+      color: #999999;
+    }
+  }
+
+  &--price{
+    font-style: normal;
+    font-weight: bold;
+    @include rem(14);
+    line-height: 16px;
+    text-align: right;
+    color: #FF7600;
+    padding-top: 6px;
+
+    span{
+      font-weight: normal;
+      white-space: nowrap;
+    }
+  }
+
+  &--info{
+    padding: 0 9px;
+  }
+
+  &--title{
+    font-style: normal;
+    font-weight: bold;
+    @include rem(16);
+    line-height: 19px;
+    color: #000000;
+    margin-bottom: 15px;
+    height: 38px;
+    overflow: hidden;
+  }
+
+  &--subtitle{
+    font-style: normal;
+    font-weight: 300;
+    @include rem(14);
+    line-height: 16px;
+    min-height: 16px;
+    color: #000000;
+    margin-bottom: 2px;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  &--input-wrap{
+    margin-bottom: 10px;
+  }
+
+  &--input{
+    &.input-narrow{
+      width: 90px;
+    }
+
+    input{
+      width: 100%;
+      height: 40px;
+      background: #FFFFFF;
+      border: 1px solid #EEEEEE;
+      border-radius: 5px;
+      font-style: normal;
+      font-weight: normal;
+      @include rem(14);
+      line-height: 16px;
+      color: #000000;
+      padding: 0 10px;
+      transition: .25s cubic-bezier(0.4, 0, 1, 1);
+
+      &::placeholder {
+        @include rem(14);
+        line-height: 16px;
+        color: #CCCCCC;
+        font-style: italic;
+      }
+
+      &:active,
+      &:focus{
+        border: 1px solid #FF7600;
+      }
+    }
+  }
+
+  .row{
+    margin-left: -5px;
+    margin-right: -5px;
+  }
+
+  .col,
+  [class*="col-"]{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .btn-wrap{
+    padding-top: 10px;
+  }
+
+  .mb-11{
+    margin-bottom: 11px;
+  }
+
+  .mb-padding{
+    margin-bottom: 2px;
+  }
+}
+
+.b-ng-select {
+  position: relative;
+
+  ::ng-deep.ng-dropdown-panel.ng-select-bottom {
+    top: 100%;
+    margin-top: 0;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 1px 0 rgba(0,0,0,.06);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: #ffffff;
+  }
+
+  ::ng-deep.ng-dropdown-panel {
+    .ng-option {
+      padding: 5px 10px;
+      line-height: 1;
+      min-height: 2rem;
+      color: #4f4f4f;
+      font-size: .875rem;
+      white-space: normal;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+  }
+
+  ::ng-deep.ng-placeholder {
+    position: absolute;
+    color: rgba(0,0,0,.54);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transition: color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    font-size: .875rem;
+    color: #4f4f4f!important;
+    -webkit-transform: none!important;
+    transform: none!important;
+    padding-right: 32px;
+
+
+    line-height: 1;
+
+  }
+
+  ::ng-deep.ng-value-container {
+    height: 38px;
+    padding: 0;
+    border: none;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  ::ng-deep.ng-select-container {
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #eeeeee;
+    height: 40px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 40px;
+
+    &:after{
+      display: none !important;
+    }
+  }
+
+  ::ng-deep.ng-input {
+    display: none;
+  }
+
+  ::ng-deep.ng-select {
+    position: relative;
+    display: block;
+    padding: 0;
+
+    .ng-arrow-wrapper{
+      .ng-arrow {
+        width: 20px;
+        height: 100%;
+        border: none;
+        margin: 0 2px;
+        position: relative;
+        display: inline-block;
+
+        &:after {
+          content: "\E928";
+          font-family: b2bcash;
+          color: #FD7622;
+          font-size: 1.375rem;
+          display: -webkit-box;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-align: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          width: 20px;
+          height: 20px;
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .ng-clear-wrapper,
+    .ng-arrow-wrapper {
+      bottom: auto;
+      align-self: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    &.ng-select-filtered,
+    &.ng-select-bottom{
+      .ng-placeholder {
+        display: none;
+      }
+    }
+
+    &.ng-select-opened,
+    &.ng-select-focused {
+      .ng-placeholder {
+        display: none !important;
+      }
+
+      ::ng-deep.ng-select-container {
+        border: 1px solid #FF7600;
+      }
+
+    }
+  }
+
+  ::ng-deep.ng-select.ng-select-single .ng-select-container .ng-value-container,
+  ::ng-deep.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value{
+    font-style: normal;
+    font-weight: normal;
+    @include rem(14);
+    line-height: 16px;
+    color: #FD7622;
+  }
+}
+
+.b-rating-wrap{
+  margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 1199px){
+  :host{
+    height: 497px;
+  }
+  .b-card{
+    &--img{
+      height: 240px;
+    }
+
+    &.range-price{
+      .b-card--img{
+        height: 200px;
+      }
+    }
+  }
+}

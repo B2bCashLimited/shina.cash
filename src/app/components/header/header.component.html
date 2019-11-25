@@ -1,0 +1,155 @@
+<!--  header-desktop-->
+<header class="header header-desktop">
+  <div class="header--top">
+    <div class="header--top-left">
+      <div class="header--location">
+        <i class="bb bb-location-arrow"></i>
+        <div (click)="openRegionSelectPopup()">
+          {{'header.region' | translate}}: <span>{{selectedCity && selectedCity[config.name] || ('locationPopup.notSelected' | translate)}}</span>
+        </div>
+      </div>
+      <div *ngIf="domainOwner && domainOwner.phone"
+           class="header--phone">
+        <i class="bb bb-phone-2"></i>
+        <div>+7 {{domainOwner.phone}}</div>
+      </div>
+    </div>
+    <div class="header--top-right">
+      <!--<ng-container *ngIf="!isLogged">
+        <a routerLink="sign-in">{{'header.signIn' | translate}}</a>
+        <span>/</span>
+        <a routerLink="sign-up">{{'header.signUp' | translate}}</a>
+        <i class="bb bb-registry"></i>
+      </ng-container>-->
+
+      <!--<button *ngIf="isLogged"
+              class="header&#45;&#45;user-btn"
+              [matMenuTriggerFor]="profileMenu">
+        <span class="e-name">{{user?.lastName}} {{user?.firstName}}</span>
+        <i class="bb bb-user"></i>
+      </button>-->
+
+      <!--<mat-menu #profileMenu="matMenu">
+        <button mat-menu-item
+                (click)="onProfileClick()">
+          <mat-icon>dashboard</mat-icon>
+          <span>{{'header.personalArea' | translate}}</span>
+        </button>
+        <button mat-menu-item
+                (click)="onLogoutClick()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>{{'header.navLogout' | translate}}</span>
+        </button>
+      </mat-menu>-->
+    </div>
+  </div>
+  <div class="header--bottom">
+    <div class="header--bottom-left">
+      <a class="d-inline-flex header--logo"
+         routerLink="/">
+        <img src="assets/img/svg-icons/logo-new.svg">
+      </a>
+    </div>
+    <div class="header--bottom-right">
+      <div class="header--input">
+        <mat-form-field floatLabel="never">
+          <i class="bb bb-musica-searcher"></i>
+          <input [(ngModel)]="searchKeyName" matInput placeholder="{{'header.search' | translate}} ... " autocomplete="off">
+          <button (click)="search()" class="btn-fill" mat-raised-button><i class="bb bb-arrow-right"></i></button>
+        </mat-form-field>
+
+      </div>
+      <button mat-raised-button
+              class="header--btn"
+              (click)="openCart()">
+        <i class="bb bb-mat-trad"></i>
+        <em>{{cartedProductsLength ? ('header.cart' | translate) + ' (' + cartedProductsLength + ')' : ('header.emptyCart' | translate)}}</em>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!--  header-mobile-->
+<header class="header header-mobile">
+  <div class="header--top">
+    <a class="d-inline-flex header--logo" routerLink="/">
+      <img src="assets/img/svg-icons/logo-new.svg">
+    </a>
+    <!--  иконка меню с уведомлением - добавляем класс - menu-notice  -->
+    <!-- при клике на эту кнопку, нужно body добавить класс show-menu -->
+    <div class="header--btn-menu" (click)="showHideMenu(true)">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div class="header--bottom">
+    <div class="header--search">
+      <div class="header--input">
+        <input placeholder="{{'header.search' | translate}} ... ">
+        <i class="bb bb-musica-searcher"></i>
+        <button (click)="search()" class="btn-fill" mat-raised-button><i class="bb bb-arrow-right"></i></button>
+      </div>
+    </div>
+    <button mat-raised-button
+            class="header--btn"
+            (click)="openCart()">
+      <i class="bb bb-mat-trad"></i>
+      <em>{{cartedProductsLength}}</em>
+    </button>
+  </div>
+</header>
+
+<!-- мобильное открывающееся меню -->
+<div class="header-menu">
+  <!-- при клике на эту кнопку, нужно у body убрать класс show-menu -->
+  <div class="header-menu--close" (click)="showHideMenu(false)">
+    <i class="bb bb-mat-arrow"></i>
+  </div>
+
+  <div class="header-menu--top">
+    <div class="header-menu--img">
+      <!-- картинка с фото юзера -->
+      <!-- иконка, если нету фото -->
+      <i class="bb bb-user"></i>
+    </div>
+    <!--<div class="w-100 d-flex justify-content-center align-items-center b-logged" *ngIf="!isLogged">
+      <ng-container>
+        <a routerLink="sign-in">{{'header.signIn' | translate}}</a>
+        <span>/</span>
+        <a routerLink="sign-up">{{'header.signUp' | translate}}</a>
+        <i class="bb bb-registry"></i>
+      </ng-container>
+    </div>-->
+
+    <!--<div class="w-100 text-center pl-1 pr-1" *ngIf="isLogged">
+      <span class="e-name">{{user?.lastName}} {{user?.firstName}}</span>
+    </div>-->
+  </div>
+
+  <section>
+    <div class="header-menu--body">
+      <div class="w-100">
+        <!--<button class="btn-logout" (click)="onLogoutClick()" *ngIf="isLogged">
+          <i class="bb bb-sign-out-alt"></i>
+          <em>{{'header.navLogout' | translate}}</em>
+        </button>-->
+      </div>
+    </div>
+
+    <div class="header-menu--footer">
+      <div class="header--location">
+        <i class="bb bb-location-arrow"></i>
+        <div (click)="openRegionSelectPopup()">
+          {{'header.region' | translate}}: <span>{{selectedCity && selectedCity[config.name] || ('locationPopup.notSelected' | translate)}}</span>
+        </div>
+      </div>
+      <div class="header--phone ml-0">
+        <i class="bb bb-phone-2"></i>
+        <div>
+          8 800 551-15-10
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

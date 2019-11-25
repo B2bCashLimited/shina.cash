@@ -1,0 +1,9 @@
+$default-color:#212529;
+$color-orange: #FF7600;
+$color-hover-orange: #FB6F31;
+$color-active-orange: #FF8956;
+$default-font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+.color-orange {
+  color: $color-orange !important;
+}

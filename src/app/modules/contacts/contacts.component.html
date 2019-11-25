@@ -1,0 +1,59 @@
+<div class="b-container">
+  <div class="b-inner d-block">
+    <h1>{{'contacts.contactInformation' | translate}}</h1>
+    <div class="position-relative w-100">
+
+      <div *ngIf="domainOwnerCompany && domainOwner"
+           class="b-map-info">
+        <mat-tab-group>
+          <mat-tab label="{{'contacts.contacts' | translate}}">
+            <div class="b-map-info--body">
+              <p>{{'contacts.phone' | translate}}:&nbsp;{{domainOwner?.phone}}</p>
+              <p>{{'contacts.email' | translate}}:&nbsp;<a href="mailbox@support@b2b.cash">{{domainOwner?.email}}</a></p>
+              <p>{{'contacts.address' | translate}}:&nbsp;
+                {{domainOwnerCompany?.legalAddress['countryName' + config.locale]}},
+                {{domainOwnerCompany?.legalAddress['regionName' + config.locale]}},
+                {{domainOwnerCompany?.legalAddress['cityName' + config.locale]}},
+                {{domainOwnerCompany?.legalAddress?.geoObject?.address}}
+              </p>
+            </div>
+          </mat-tab>
+          <mat-tab label="{{'contacts.companyRequisites' | translate}}">
+            <div class="b-map-info--body">
+              <h3>{{domainOwnerCompany[config.name] || ''}}</h3>
+              <p>{{'contacts.legalAddress' | translate}}:&nbsp;
+                {{domainOwnerCompany?.legalAddress['countryName' + config.locale]}},
+                {{domainOwnerCompany?.legalAddress['regionName' + config.locale]}},
+                {{domainOwnerCompany?.legalAddress['cityName' + config.locale]}},
+                {{domainOwnerCompany?.legalAddress?.geoObject?.address}}
+              </p>
+              <p>{{'contacts.ogrn' | translate}}:&nbsp;{{domainOwnerCompany['companyDetails' + config.locale]?.businesLicense || ('contacts.notSpecified' | translate)}},</p>
+              <p>{{'contacts.innKpp' | translate}}:&nbsp;{{domainOwnerCompany['companyDetails' + config.locale]?.taxLicense || ('contacts.notSpecified' | translate)}}/{{domainOwnerCompany['companyDetails' + config.locale]?.letterConsignment || ('contacts.notSpecified' | translate)}}</p>
+              <p>{{'contacts.operatingAccount' | translate}}:&nbsp;{{domainOwnerCompany['companyDetails' + config.locale]?.bank?.RS || ('contacts.notSpecified' | translate)}}</p>
+              <p>{{'contacts.bankCorresponding' | translate}}:&nbsp;{{domainOwnerCompany['companyDetails' + config.locale]?.bank?.accountHolder || ('contacts.notSpecified' | translate)}}</p>
+              <p>{{'contacts.bank' | translate}}:&nbsp;{{domainOwnerCompany['companyDetails' + config.locale]?.bank?.name || ('contacts.notSpecified' | translate)}}  <img src="assets/img/tintkoff.png"> </p>
+              <p>{{'contacts.bik' | translate}}:&nbsp;{{domainOwnerCompany['companyDetails' + config.locale]?.bank?.BIK || ('contacts.notSpecified' | translate)}}</p>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+
+      <div #map class="map">
+        <agm-map [latitude]="domainOwnerCompany?.legalAddress?.geoObject?.lat"
+                 [longitude]="domainOwnerCompany?.legalAddress?.geoObject?.lng"
+                 [zoom]="zoom"
+                 [disableDefaultUI]="false"
+                 [zoomControl]="true">
+          <agm-marker
+            [latitude]="domainOwnerCompany?.legalAddress?.geoObject?.lat"
+            [longitude]="domainOwnerCompany?.legalAddress?.geoObject?.lng"
+            [label]="domainOwnerCompany?.legalAddress?.geoObject?.address">
+            <agm-info-window>
+              {{domainOwnerCompany?.legalAddress?.geoObject?.address}}
+            </agm-info-window>
+          </agm-marker>
+        </agm-map>
+      </div>
+    </div>
+  </div>
+</div>
